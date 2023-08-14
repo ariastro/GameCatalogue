@@ -1,7 +1,8 @@
-package io.astronout.gamescatalogue
+package io.astronout.gamescatalogue.presentation.main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import io.astronout.gamescatalogue.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

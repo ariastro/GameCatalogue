@@ -5,6 +5,7 @@
         <item name="colorPrimaryDark">@color/primary_50</item>
         <item name="colorAccent">@color/accent_50</item>
         <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 
     <style name="Theme.GamesCatalogue" parent="Base.Theme.GamesCatalogue" />
