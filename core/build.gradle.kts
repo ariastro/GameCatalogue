@@ -20,20 +20,24 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("release") {
+            buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
+            buildConfigField("String", "API_KEY", "\"5e42d6bc97d545f18d6a6e28d3ad8237\"")
+            isMinifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+        }
+        getByName("debug") {
+            buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
+            buildConfigField("String", "API_KEY", "\"5e42d6bc97d545f18d6a6e28d3ad8237\"")
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
 }
 
@@ -89,7 +93,6 @@ dependencies {
     api(libs.cpp)
 
     coreLibraryDesugaring(libs.desugar)
-    api(libs.calendar)
     api(libs.progress.view)
 
     api(libs.sliding.up.panel)
