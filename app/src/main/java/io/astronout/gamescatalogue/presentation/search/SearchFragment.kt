@@ -1,6 +1,5 @@
 package io.astronout.gamescatalogue.presentation.search
 
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import io.astronout.core.base.BaseFragment
@@ -14,9 +13,6 @@ import io.astronout.gamescatalogue.R
 import io.astronout.gamescatalogue.databinding.FragmentSearchBinding
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.filterNot
-import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -60,11 +56,9 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
             when (it) {
                 is Resource.Loading -> {}
                 is Resource.Error -> {
-                    progress.dismiss()
                     showToast(it.message)
                 }
                 is Resource.Success -> {
-                    progress.dismiss()
                     onSearchGamesSuccess(it.data)
                 }
             }
