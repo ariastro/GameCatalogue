@@ -175,8 +175,8 @@ fun String.toDate(format: String = ConverterDate.UTC.formatter): Date {
     return toLocalDate(format).toDate()
 }
 
-fun String.convertDateTo(desireFormat: ConverterDate, originalFormat: ConverterDate = ConverterDate.SQL_FULL_DATE): String {
-    val dateFormat = SimpleDateFormat(originalFormat.formatter, Locale.KOREA)
+fun String.convertDateTo(desireFormat: ConverterDate, originalFormat: ConverterDate = ConverterDate.SQL_DATE): String {
+    val dateFormat = SimpleDateFormat(originalFormat.formatter, Locale("id", "ID"))
     val date = dateFormat.parse(this) ?: Date()
     dateFormat.applyPattern(desireFormat.formatter)
     return dateFormat.format(date)

@@ -1,20 +1,46 @@
 package io.astronout.gamescatalogue.presentation.home
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.paging.LoadState
+import io.astronout.core.base.BaseFragment
+import io.astronout.core.binding.viewBinding
+import io.astronout.core.utils.collectLifecycleFlow
 import io.astronout.gamescatalogue.R
+import io.astronout.gamescatalogue.databinding.FragmentHomeBinding
+import io.astronout.gamescatalogue.presentation.home.adapter.GameAdapter
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+    private val binding: FragmentHomeBinding by viewBinding()
+    private val viewModel: HomeViewModel by viewModels()
+
+    private val adapter: GameAdapter by lazy {
+        GameAdapter {
+
+        }
     }
 
+    override fun initObserver() {
+        super.initObserver()
+        with(binding) {
+            collectLifecycleFlow(viewModel.games) {
+                val recyclerViewState = rvGame.layoutManager?.onSaveInstanceState()
+                adapter.submitData(lifecycle, it)
+                rvGame.layoutManager?.onRestoreInstanceState(recyclerViewState)
+            }
+        }
+    }
+
+    override fun initUI() {
+        super.initUI()
+        with(binding) {
+            rvGame.adapter = adapter
+            adapter.addLoadStateListener { loadState ->
+                if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
+//                    llEmptyState.isVisible = recordAdapter.itemCount < 1
+//                    rvRecord.isVisible = recordAdapter.itemCount > 0
+                }
+            }
+        }
+    }
 }

@@ -1,6 +1,8 @@
 <resources>
-    <string name="app_name">GamesCatalogue</string>
+    <string name="app_name">Games\nCatalogue</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_browse_games">Browse games</string>
+    <string name="title_search_games">Search games</string>
+    <string name="retry">Retry</string>
 </resources>

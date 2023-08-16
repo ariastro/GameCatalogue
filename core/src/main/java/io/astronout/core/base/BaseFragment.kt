@@ -11,7 +11,9 @@ import io.astronout.core.utils.AppProgressDialog
 abstract class BaseFragment(@LayoutRes layoutId: Int): Fragment(layoutId) {
 
     open fun initData() {}
-    open fun initUI() {}
+    open fun initUI() {
+        setupProgress()
+    }
     open fun initAction() {}
     open fun initObserver() {}
 

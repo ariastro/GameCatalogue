@@ -3,13 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_main"
-    app:startDestination="@id/homeFragment">
-
+    app:startDestination="@id/splashScreenFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="io.astronout.gamescatalogue.presentation.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/splashScreenFragment"
+        android:name="io.astronout.gamescatalogue.presentation.splashscreen.SplashScreenFragment"
+        android:label="SplashScreenFragment"
+        tools:layout="@layout/fragment_splash_screen">
+        <action
+            android:id="@+id/action_splashScreenFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right"
+            app:popUpToInclusive="true"
+            app:popUpTo="@+id/splashScreenFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="io.astronout.gamescatalogue.presentation.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" />
 
 </navigation>

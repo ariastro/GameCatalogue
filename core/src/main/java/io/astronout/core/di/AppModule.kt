@@ -16,6 +16,8 @@ import io.astronout.core.data.source.GamesStoryDataStore
 import io.astronout.core.data.source.remote.AuthInterceptor
 import io.astronout.core.data.source.remote.web.ApiClient
 import io.astronout.core.data.source.remote.web.ApiService
+import io.astronout.core.domain.usecase.GameInteractor
+import io.astronout.core.domain.usecase.GameUsecase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
@@ -52,15 +54,15 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(@ApplicationContext context: Context, chuckerInterceptor: ChuckerInterceptor) = if (BuildConfig.DEBUG) {
+    fun provideOkHttpClient(chuckerInterceptor: ChuckerInterceptor) = if (BuildConfig.DEBUG) {
         OkHttpClient.Builder()
+//            .addInterceptor(AuthInterceptor())
             .addInterceptor(chuckerInterceptor)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .addInterceptor(AuthInterceptor())
             .build()
     } else {
         OkHttpClient.Builder()
-            .addInterceptor(AuthInterceptor())
+//            .addInterceptor(AuthInterceptor())
             .build()
     }
 
@@ -94,11 +96,11 @@ class AppModule {
 //    @Provides
 //    @Singleton
 //    fun provideLocalDataSource(dataStore: DataStore<Preferences>): LocalDataSource = LocalDataSourceImpl(dataStore)
-//
-//    @Provides
-//    @Singleton
-//    fun provideAuthUsecase(repo: TrackFitRepository): AuthUsecase {
-//        return AuthInteractor(repo)
-//    }
+
+    @Provides
+    @Singleton
+    fun provideGameUsecase(repo: GamesRepository): GameUsecase {
+        return GameInteractor(repo)
+    }
 
 }

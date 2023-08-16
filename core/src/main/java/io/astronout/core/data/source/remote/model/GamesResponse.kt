@@ -106,7 +106,7 @@ data class GamesResponse(
         @JsonClass(generateAdapter = true)
         data class Platform(
             @Json(name = "platform")
-            val platform: Platform? = null,
+            val platform: PlatformChild? = null,
             @Json(name = "released_at")
             val releasedAt: String? = null,
             @Json(name = "requirements_en")
@@ -115,7 +115,7 @@ data class GamesResponse(
             val requirementsRu: RequirementsRu? = null
         ) {
             @JsonClass(generateAdapter = true)
-            data class Platform(
+            data class PlatformChild(
                 @Json(name = "id")
                 val id: Int? = null,
                 @Json(name = "name")
@@ -186,10 +186,10 @@ data class GamesResponse(
             @Json(name = "id")
             val id: Int? = null,
             @Json(name = "store")
-            val store: Store? = null
+            val store: StoreChild? = null
         ) {
             @JsonClass(generateAdapter = true)
-            data class Store(
+            data class StoreChild(
                 @Json(name = "id")
                 val id: Int? = null,
                 @Json(name = "name")

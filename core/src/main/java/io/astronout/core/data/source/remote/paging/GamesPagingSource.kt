@@ -4,25 +4,26 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import io.astronout.core.data.source.GamesStoryDataStore.Companion.NETWORK_PAGE_SIZE
 import io.astronout.core.data.source.remote.web.ApiClient
+import io.astronout.core.domain.model.Game
 import retrofit2.HttpException
 import java.io.IOException
 
 class GamesPagingSource(
-    private val api: ApiClient
-) : PagingSource<Int, Unit>() {
+    private val apiClient: ApiClient
+) : PagingSource<Int, Game>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Record> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Game> {
         val position = params.key ?: STARTING_PAGE_INDEX
         return try {
-            val response = api.getGames(position, params.loadSize)
-            val games = response.data
-            val nextKey = if (records.isNullOrEmpty()) {
+            val response = apiClient.getGames(position, params.loadSize)
+            val repos = response.results
+            val nextKey = if (repos.isNullOrEmpty()) {
                 null
             } else {
                 position + (params.loadSize / NETWORK_PAGE_SIZE)
             }
             LoadResult.Page(
-                data = records?.map { Record(it) }.orEmpty(),
+                data = repos?.map { Game(it) }.orEmpty(),
                 prevKey = if (position == STARTING_PAGE_INDEX) null else position - 1,
                 nextKey = nextKey
             )
@@ -33,7 +34,7 @@ class GamesPagingSource(
         }
     }
 
-    override fun getRefreshKey(state: PagingState<Int, Record>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Game>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
