@@ -15,4 +15,6 @@ interface GameUsecase {
 
     fun getAllFavoritesGames(): Flow<List<Game>>
 
+    fun getGameDetails(id: Long): Flow<Game?>
+
 }

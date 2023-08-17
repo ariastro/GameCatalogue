@@ -21,7 +21,7 @@ interface GameDao {
     fun getAllGames(): PagingSource<Int, GameEntity>
 
     @Query("SELECT * FROM game WHERE id = :id")
-    fun getGameDetails(id: Long): GameEntity?
+    fun getGameDetails(id: Long): Flow<GameEntity?>
 
     @Query("UPDATE game SET is_favorites = :isFavorites WHERE id = :id")
     suspend fun setIsFavorites(isFavorites: Boolean, id: Long)

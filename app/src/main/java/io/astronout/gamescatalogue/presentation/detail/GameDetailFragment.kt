@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import io.astronout.core.base.BaseFragment
 import io.astronout.core.binding.viewBinding
 import io.astronout.core.utils.ConverterDate
+import io.astronout.core.utils.collectLifecycleFlow
 import io.astronout.core.utils.convertDateTo
 import io.astronout.core.utils.getDrawableCompat
 import io.astronout.core.utils.loadImage
@@ -34,13 +35,18 @@ class GameDetailFragment : BaseFragment(R.layout.fragment_game_detail) {
     override fun initData() {
         super.initData()
         with(binding) {
-            toolbar.title = args.game.name
-            tvTitle.text = args.game.name
-            tvReleaseDate.text = "Released: ${args.game.released.convertDateTo(ConverterDate.FULL_DATE)}"
-            tvRating.text = "${args.game.rating}/5"
-            ivGame.loadImage(args.game.backgroundImage)
-            binding.ivFavorites.isActivated = args.game.isFavorites
-            toggleFavorites()
+            collectLifecycleFlow(viewModel.getGameDetails(args.game.id)) {
+                if (it != null) {
+                    toolbar.title = it.name
+                    tvTitle.text = it.name
+                    tvReleaseDate.text =
+                        "Released: ${it.released.convertDateTo(ConverterDate.FULL_DATE)}"
+                    tvRating.text = "${it.rating}/5"
+                    ivGame.loadImage(it.backgroundImage)
+                    binding.ivFavorites.isActivated = it.isFavorites
+                    toggleFavorites()
+                }
+            }
         }
     }
 

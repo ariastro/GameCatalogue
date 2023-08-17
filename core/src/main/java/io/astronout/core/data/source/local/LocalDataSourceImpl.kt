@@ -5,6 +5,7 @@ import io.astronout.core.data.source.local.entity.GameEntity
 import io.astronout.core.data.source.local.entity.RemoteKeys
 import io.astronout.core.data.source.local.room.GameDatabase
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 class LocalDataSourceImpl @Inject constructor(
@@ -17,7 +18,7 @@ class LocalDataSourceImpl @Inject constructor(
         return appDatabase.gameDao().getAllGames()
     }
 
-    override fun getGameDetail(id: Long): GameEntity? {
+    override fun getGameDetail(id: Long): Flow<GameEntity?> {
         return appDatabase.gameDao().getGameDetails(id)
     }
 
@@ -34,7 +35,7 @@ class LocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun insertGame(game: GameEntity) {
-        if (getGameDetail(game.id) == null) {
+        if (getGameDetail(game.id).first() == null) {
             appDatabase.gameDao().insertGame(game)
         }
     }

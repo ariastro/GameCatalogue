@@ -11,6 +11,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(private val usecase: GameUsecase) : ViewModel() {
 
+    fun getGameDetails(id: Long) = usecase.getGameDetails(id)
+
     fun setIsFavorites(isFavorites: Boolean, id: Long) {
         viewModelScope.launch {
             usecase.setIsFavorites(isFavorites, id)
