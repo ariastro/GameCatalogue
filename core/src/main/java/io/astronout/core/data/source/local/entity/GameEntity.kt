@@ -11,7 +11,7 @@ import io.astronout.core.data.source.remote.model.GamesResponse
 @TypeConverters(StringTypeConverter::class)
 data class GameEntity(
     @PrimaryKey
-    val id: Int,
+    val id: Long,
     @ColumnInfo(name = "slug")
     val slug: String,
     @ColumnInfo(name = "name")
@@ -61,7 +61,7 @@ data class GameEntity(
     @ColumnInfo(name = "description")
     val description: String,
     @ColumnInfo(name = "is_favorites")
-    val isFavorites: Boolean
+    var isFavorites: Boolean
 ) {
     constructor(data: GamesResponse.Game?): this(
         id = data?.id ?: 0,

@@ -16,6 +16,10 @@ class LocalDataSourceImpl @Inject constructor(
         return appDatabase.gameDao().getAllGames()
     }
 
+    override suspend fun setIsFavorites(isFavorites: Boolean, id: Long) {
+        return appDatabase.gameDao().setIsFavorites(isFavorites, id)
+    }
+
     override fun getAllFavoriteGames(): List<GameEntity> {
         return appDatabase.gameDao().getAllFavoriteGames()
     }
@@ -28,7 +32,7 @@ class LocalDataSourceImpl @Inject constructor(
         appDatabase.gameDao().deleteAllGames()
     }
 
-    override suspend fun getRemoteKeys(id: Int): RemoteKeys? {
+    override suspend fun getRemoteKeys(id: Long): RemoteKeys? {
         return appDatabase.remoteKeysDao().getRemoteKeysId(id)
     }
 

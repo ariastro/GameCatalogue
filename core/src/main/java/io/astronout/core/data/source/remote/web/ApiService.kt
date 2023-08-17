@@ -13,7 +13,7 @@ interface ApiService {
         @Query("page") page: Int,
         @Query("page_size") pageSize: Int,
         @Query("key") key: String = BuildConfig.API_KEY
-    ): ApiResponse<GamesResponse>
+    ): GamesResponse
 
     @GET("games")
     suspend fun searchGames(

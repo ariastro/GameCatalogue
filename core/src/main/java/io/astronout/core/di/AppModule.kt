@@ -113,8 +113,8 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideGameUsecase(repo: GamesRepository): GameUsecase {
-        return GameInteractor(repo)
+    fun provideGameUsecase(repo: GamesRepository, localDataSource: LocalDataSource): GameUsecase {
+        return GameInteractor(repo, localDataSource)
     }
 
 }

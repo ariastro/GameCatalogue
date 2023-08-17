@@ -5,6 +5,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import io.astronout.core.base.BaseFragment
 import io.astronout.core.binding.viewBinding
+import io.astronout.core.utils.collectLatestLifecycleFlow
 import io.astronout.core.utils.collectLifecycleFlow
 import io.astronout.gamescatalogue.R
 import io.astronout.gamescatalogue.databinding.FragmentHomeBinding
@@ -24,7 +25,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun initObserver() {
         super.initObserver()
         with(binding) {
-            collectLifecycleFlow(viewModel.games) {
+            collectLatestLifecycleFlow(viewModel.games) {
                 val recyclerViewState = rvGame.layoutManager?.onSaveInstanceState()
                 adapter.submitData(lifecycle, it)
                 rvGame.layoutManager?.onRestoreInstanceState(recyclerViewState)

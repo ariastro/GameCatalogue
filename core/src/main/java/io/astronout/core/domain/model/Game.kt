@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Game(
-    val id: Int,
+    val id: Long,
     val slug: String,
     val name: String,
     val released: String,
@@ -30,7 +30,9 @@ data class Game(
     val stores: List<String>,
     val tags: List<String>,
     val esrbRating: String,
-    val shortScreenshots: List<String>
+    val shortScreenshots: List<String>,
+    val isFavorites: Boolean,
+    val description: String
 ): Parcelable {
 
     constructor(data: GamesResponse.Game?): this(
@@ -57,7 +59,9 @@ data class Game(
         stores = data?.stores?.map { it.store?.name.orEmpty() }.orEmpty(),
         tags = data?.tags?.map { it.name.orEmpty() }.orEmpty(),
         esrbRating = data?.esrbRating?.name.orEmpty(),
-        shortScreenshots = data?.shortScreenshots?.map { it.image.orEmpty() }.orEmpty()
+        shortScreenshots = data?.shortScreenshots?.map { it.image.orEmpty() }.orEmpty(),
+        isFavorites = false,
+        description = ""
     )
 
     constructor(data: GameEntity?): this(
@@ -84,7 +88,9 @@ data class Game(
         stores = data?.stores.orEmpty(),
         tags = data?.tags.orEmpty(),
         esrbRating = data?.esrbRating.orEmpty(),
-        shortScreenshots = data?.shortScreenshots.orEmpty()
+        shortScreenshots = data?.shortScreenshots.orEmpty(),
+        isFavorites = data?.isFavorites ?: false,
+        description = data?.description.orEmpty()
     )
 
     @Parcelize

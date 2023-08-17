@@ -17,7 +17,7 @@ data class GamesResponse(
     @JsonClass(generateAdapter = true)
     data class Game(
         @Json(name = "id")
-        val id: Int? = null,
+        val id: Long? = null,
         @Json(name = "slug")
         val slug: String? = null,
         @Json(name = "name")

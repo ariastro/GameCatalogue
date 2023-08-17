@@ -8,10 +8,11 @@ import io.astronout.core.data.source.local.room.GameDatabase
 interface LocalDataSource {
     fun getDatabase(): GameDatabase
     fun getAllGames(): PagingSource<Int, GameEntity>
+    suspend fun setIsFavorites(isFavorites: Boolean, id: Long)
     fun getAllFavoriteGames(): List<GameEntity>
     suspend fun insertGames(games: List<GameEntity>)
     suspend fun clearGames()
-    suspend fun getRemoteKeys(id: Int): RemoteKeys?
+    suspend fun getRemoteKeys(id: Long): RemoteKeys?
     suspend fun insertRemoteKeys(keys: List<RemoteKeys>)
     suspend fun clearRemoteKeys()
 

@@ -11,4 +11,6 @@ interface GameUsecase {
 
     fun searchGames(query: String): Flow<Resource<List<Game>>>
 
+    suspend fun setIsFavorites(isFavorites: Boolean, id: Long)
+
 }
