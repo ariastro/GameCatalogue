@@ -7,16 +7,14 @@ import io.astronout.core.binding.viewBinding
 import io.astronout.core.utils.collectLifecycleFlow
 import io.astronout.gamescatalogue.R
 import io.astronout.gamescatalogue.databinding.FragmentFavouritesBinding
-import io.astronout.gamescatalogue.presentation.search.SearchFragmentDirections
-import io.astronout.gamescatalogue.presentation.search.SearchGameAdapter
 
 class FavouritesFragment : BaseFragment(R.layout.fragment_favourites) {
 
     private val binding: FragmentFavouritesBinding by viewBinding()
     private val viewModel: FavouritesViewModel by viewModels()
-    private val adapter: SearchGameAdapter by lazy {
-        SearchGameAdapter {
-            findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToGameDetailFragment(it))
+    private val adapter: FavouritesGameAdapter by lazy {
+        FavouritesGameAdapter {
+            findNavController().navigate(FavouritesFragmentDirections.actionFavouritesFragmentToGameDetailFragment(it))
         }
     }
 
