@@ -52,10 +52,10 @@ class GamesRemoteMediator(
             val games = apiResponse.results
             val endOfPaginationReached = games.isNullOrEmpty()
             localDataSource.getDatabase().withTransaction {
-                if (loadType == LoadType.REFRESH) {
-                    localDataSource.clearRemoteKeys()
-                    localDataSource.clearGames()
-                }
+//                if (loadType == LoadType.REFRESH) {
+//                    localDataSource.clearRemoteKeys()
+//                    localDataSource.clearGames()
+//                }
                 val prevKey = if (page == INITIAL_PAGE_INDEX) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
                 val keys = games?.map {
@@ -65,7 +65,10 @@ class GamesRemoteMediator(
                     localDataSource.insertRemoteKeys(it)
                 }
                 games?.map { GameEntity(it) }?.let {
-                    localDataSource.insertGames(it)
+                    it.forEach { game ->
+                        localDataSource.insertGame(game)
+                    }
+//                    localDataSource.insertGames(it)
                 }
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)

@@ -6,10 +6,10 @@ import androidx.paging.LoadState
 import io.astronout.core.base.BaseFragment
 import io.astronout.core.binding.viewBinding
 import io.astronout.core.utils.collectLatestLifecycleFlow
-import io.astronout.core.utils.collectLifecycleFlow
 import io.astronout.gamescatalogue.R
 import io.astronout.gamescatalogue.databinding.FragmentHomeBinding
 import io.astronout.gamescatalogue.presentation.home.adapter.GameAdapter
+import io.astronout.gamescatalogue.presentation.home.adapter.LoadingStateAdapter
 
 class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
@@ -36,7 +36,20 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
     override fun initUI() {
         super.initUI()
         with(binding) {
-            rvGame.adapter = adapter
+            adapter.addLoadStateListener { loadState ->
+                if ((loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && adapter.itemCount < 1) || loadState.source.refresh is LoadState.Error) {
+//                    msvStories.showEmptyLayout()
+                } else {
+//                    msvStories.showDefaultLayout()
+                }
+            }
+            runCatching {
+                rvGame.adapter = adapter.withLoadStateFooter(
+                    footer = LoadingStateAdapter {
+                        adapter.retry()
+                    }
+                )
+            }
         }
     }
 }

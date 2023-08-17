@@ -14,8 +14,14 @@ interface GameDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE, entity = GameEntity::class)
     suspend fun insertGames(games: List<GameEntity>)
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertGame(games: GameEntity)
+
     @Query("SELECT * FROM game")
     fun getAllGames(): PagingSource<Int, GameEntity>
+
+    @Query("SELECT * FROM game WHERE id = :id")
+    fun getGameDetails(id: Long): GameEntity?
 
     @Query("UPDATE game SET is_favorites = :isFavorites WHERE id = :id")
     suspend fun setIsFavorites(isFavorites: Boolean, id: Long)

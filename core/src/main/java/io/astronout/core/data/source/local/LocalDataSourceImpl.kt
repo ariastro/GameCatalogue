@@ -17,6 +17,10 @@ class LocalDataSourceImpl @Inject constructor(
         return appDatabase.gameDao().getAllGames()
     }
 
+    override fun getGameDetail(id: Long): GameEntity? {
+        return appDatabase.gameDao().getGameDetails(id)
+    }
+
     override suspend fun setIsFavorites(isFavorites: Boolean, id: Long) {
         return appDatabase.gameDao().setIsFavorites(isFavorites, id)
     }
@@ -27,6 +31,12 @@ class LocalDataSourceImpl @Inject constructor(
 
     override suspend fun insertGames(games: List<GameEntity>) {
         appDatabase.gameDao().insertGames(games)
+    }
+
+    override suspend fun insertGame(game: GameEntity) {
+        if (getGameDetail(game.id) == null) {
+            appDatabase.gameDao().insertGame(game)
+        }
     }
 
     override suspend fun clearGames() {
