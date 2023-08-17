@@ -74,38 +74,6 @@ class GamesRemoteMediator(
         } catch (exception: HttpException) {
             return MediatorResult.Error(exception)
         }
-
-//        try {
-//            val responseData = api.getGames(page, state.config.pageSize)
-//            var endOfPaginationReached = false
-//            responseData.suspendOnSuccess {
-//                val games = response.body()?.results
-//                endOfPaginationReached = games.isNullOrEmpty()
-//                localDataSource.getDatabase().withTransaction {
-//                    if (loadType == LoadType.REFRESH) {
-//                        localDataSource.clearRemoteKeys()
-//                        localDataSource.clearGames()
-//                    }
-//
-//                    val prevKey = if (page == 1) null else page - 1
-//                    val nextKey = if (endOfPaginationReached) null else page + 1
-//                    val keys = games?.map {
-//                        RemoteKeys(id = it.id ?: 0, prevKey = prevKey, nextKey = nextKey)
-//                    }
-//
-//                    keys?.let {
-//                        localDataSource.insertRemoteKeys(it)
-//                    }
-//                    games?.map { GameEntity(it) }?.let {
-//                        localDataSource.insertGames(it)
-//                    }
-//                }
-//            }
-//            return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
-//
-//        } catch (e: Exception) {
-//            return MediatorResult.Error(e)
-//        }
     }
 
     override suspend fun initialize(): InitializeAction {
