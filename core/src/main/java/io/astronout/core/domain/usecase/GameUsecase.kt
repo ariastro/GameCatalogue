@@ -13,4 +13,6 @@ interface GameUsecase {
 
     suspend fun setIsFavorites(isFavorites: Boolean, id: Long)
 
+    fun getAllFavoritesGames(): Flow<List<Game>>
+
 }

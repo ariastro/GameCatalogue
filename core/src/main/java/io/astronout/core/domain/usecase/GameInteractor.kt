@@ -26,4 +26,10 @@ class GameInteractor @Inject constructor(private val repo: GamesRepository, priv
         localDataSource.setIsFavorites(isFavorites, id)
     }
 
+    override fun getAllFavoritesGames(): Flow<List<Game>> {
+        return localDataSource.getAllFavoriteGames().map { data ->
+            data.map { Game(it) }
+        }
+    }
+
 }

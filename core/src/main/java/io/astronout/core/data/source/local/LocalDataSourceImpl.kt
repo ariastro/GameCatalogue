@@ -4,6 +4,7 @@ import androidx.paging.PagingSource
 import io.astronout.core.data.source.local.entity.GameEntity
 import io.astronout.core.data.source.local.entity.RemoteKeys
 import io.astronout.core.data.source.local.room.GameDatabase
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LocalDataSourceImpl @Inject constructor(
@@ -20,7 +21,7 @@ class LocalDataSourceImpl @Inject constructor(
         return appDatabase.gameDao().setIsFavorites(isFavorites, id)
     }
 
-    override fun getAllFavoriteGames(): List<GameEntity> {
+    override fun getAllFavoriteGames(): Flow<List<GameEntity>> {
         return appDatabase.gameDao().getAllFavoriteGames()
     }
 

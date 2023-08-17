@@ -55,5 +55,18 @@
             android:name="game"
             app:argType="io.astronout.core.domain.model.Game" />
     </fragment>
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="io.astronout.gamescatalogue.presentation.favourite.FavouritesFragment"
+        android:label="FavouritesFragment"
+        tools:layout="@layout/fragment_favourites" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_gameDetailFragment"
+            app:destination="@id/gameDetailFragment"
+            app:enterAnim="@anim/anim_slide_in_right"
+            app:exitAnim="@anim/anim_slide_out_left"
+            app:popEnterAnim="@anim/anim_slide_in_left"
+            app:popExitAnim="@anim/anim_slide_out_right" />
+    </fragment>
 
 </navigation>
