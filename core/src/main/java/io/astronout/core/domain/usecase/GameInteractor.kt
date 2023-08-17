@@ -34,7 +34,11 @@ class GameInteractor @Inject constructor(private val repo: GamesRepository, priv
 
     override fun getGameDetails(id: Long): Flow<Game?> {
         return localDataSource.getGameDetail(id).map {
-            Game(it)
+            if (it == null) {
+                null
+            } else {
+                Game(it)
+            }
         }
     }
 

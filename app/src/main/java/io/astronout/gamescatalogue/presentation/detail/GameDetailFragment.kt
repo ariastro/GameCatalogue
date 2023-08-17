@@ -7,6 +7,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import io.astronout.core.base.BaseFragment
 import io.astronout.core.binding.viewBinding
+import io.astronout.core.domain.model.Game
 import io.astronout.core.utils.ConverterDate
 import io.astronout.core.utils.collectLifecycleFlow
 import io.astronout.core.utils.convertDateTo
@@ -14,6 +15,7 @@ import io.astronout.core.utils.getDrawableCompat
 import io.astronout.core.utils.loadImage
 import io.astronout.gamescatalogue.R
 import io.astronout.gamescatalogue.databinding.FragmentGameDetailBinding
+import timber.log.Timber
 
 class GameDetailFragment : BaseFragment(R.layout.fragment_game_detail) {
 
@@ -31,22 +33,28 @@ class GameDetailFragment : BaseFragment(R.layout.fragment_game_detail) {
         }
     }
 
-    @SuppressLint("SetTextI18n")
     override fun initData() {
         super.initData()
-        with(binding) {
-            collectLifecycleFlow(viewModel.getGameDetails(args.game.id)) {
-                if (it != null) {
-                    toolbar.title = it.name
-                    tvTitle.text = it.name
-                    tvReleaseDate.text =
-                        "Released: ${it.released.convertDateTo(ConverterDate.FULL_DATE)}"
-                    tvRating.text = "${it.rating}/5"
-                    ivGame.loadImage(it.backgroundImage)
-                    binding.ivFavorites.isActivated = it.isFavorites
-                    toggleFavorites()
-                }
+        collectLifecycleFlow(viewModel.getGameDetails(args.game.id)) {
+            Timber.d("checkData: $it")
+            if (it != null) {
+                showGameDetails(it)
+            } else {
+                showGameDetails(args.game)
             }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun showGameDetails(game: Game) {
+        with(binding) {
+            toolbar.title = game.name
+            tvTitle.text = game.name
+            tvReleaseDate.text = "Released: ${game.released.convertDateTo(ConverterDate.FULL_DATE)}"
+            tvRating.text = "${game.rating}/5"
+            ivGame.loadImage(game.backgroundImage)
+            binding.ivFavorites.isActivated = game.isFavorites
+            toggleFavorites()
         }
     }
 
