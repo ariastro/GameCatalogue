@@ -1,5 +1,6 @@
 package io.astronout.core.data.source
 
+import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
@@ -7,7 +8,9 @@ import com.skydoves.sandwich.message
 import com.skydoves.sandwich.suspendOnError
 import com.skydoves.sandwich.suspendOnException
 import com.skydoves.sandwich.suspendOnSuccess
-import io.astronout.core.data.source.remote.paging.GamesPagingSource
+import io.astronout.core.data.source.local.LocalDataSource
+import io.astronout.core.data.source.local.entity.GameEntity
+import io.astronout.core.data.source.remote.paging.GamesRemoteMediator
 import io.astronout.core.data.source.remote.web.ApiClient
 import io.astronout.core.domain.model.Game
 import io.astronout.core.vo.Resource
@@ -20,16 +23,18 @@ import javax.inject.Inject
 
 class GamesStoryDataStore @Inject constructor(
     private val api: ApiClient,
+    private val localDataSource: LocalDataSource,
     private val ioDispatcher: CoroutineDispatcher
 ) : GamesRepository {
 
-    override fun getGames(): Flow<PagingData<Game>> {
+    @OptIn(ExperimentalPagingApi::class)
+    override fun getGames(): Flow<PagingData<GameEntity>> {
         return Pager(
-            config = PagingConfig(
-                pageSize = NETWORK_PAGE_SIZE,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = { GamesPagingSource(api) }
+            config = PagingConfig(pageSize = NETWORK_PAGE_SIZE,),
+            remoteMediator = GamesRemoteMediator(api, localDataSource),
+            pagingSourceFactory = {
+                localDataSource.getAllGames()
+            }
         ).flow
     }
 

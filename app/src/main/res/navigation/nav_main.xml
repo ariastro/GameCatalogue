@@ -50,6 +50,10 @@
         android:id="@+id/gameDetailFragment"
         android:name="io.astronout.gamescatalogue.presentation.detail.GameDetailFragment"
         android:label="fragment_game_detail"
-        tools:layout="@layout/fragment_game_detail" />
+        tools:layout="@layout/fragment_game_detail" >
+        <argument
+            android:name="game"
+            app:argType="io.astronout.core.domain.model.Game" />
+    </fragment>
 
 </navigation>

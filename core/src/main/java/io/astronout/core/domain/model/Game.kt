@@ -1,8 +1,7 @@
 package io.astronout.core.domain.model
 
 import android.os.Parcelable
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import io.astronout.core.data.source.local.entity.GameEntity
 import io.astronout.core.data.source.remote.model.GamesResponse
 import kotlinx.parcelize.Parcelize
 
@@ -16,11 +15,9 @@ data class Game(
     val backgroundImage: String,
     val rating: Double,
     val ratingTop: Int,
-    val ratings: List<Rating>,
     val ratingsCount: Int,
     val reviewsTextCount: Int,
     val added: Int,
-    val addedByStatus: AddedByStatus,
     val metacritic: Int,
     val playtime: Int,
     val suggestionsCount: Int,
@@ -45,11 +42,9 @@ data class Game(
         backgroundImage = data?.backgroundImage.orEmpty(),
         rating = data?.rating ?: 0.0,
         ratingTop = data?.ratingTop ?: 0,
-        ratings = data?.ratings?.map { Rating(it) }.orEmpty(),
         ratingsCount = data?.ratingsCount ?: 0,
         reviewsTextCount = data?.reviewsTextCount ?: 0,
         added = data?.added ?: 0,
-        addedByStatus = AddedByStatus(data?.addedByStatus),
         metacritic = data?.metacritic ?: 0,
         playtime = data?.playtime ?: 0,
         suggestionsCount = data?.suggestionsCount ?: 0,
@@ -63,6 +58,33 @@ data class Game(
         tags = data?.tags?.map { it.name.orEmpty() }.orEmpty(),
         esrbRating = data?.esrbRating?.name.orEmpty(),
         shortScreenshots = data?.shortScreenshots?.map { it.image.orEmpty() }.orEmpty()
+    )
+
+    constructor(data: GameEntity?): this(
+        id = data?.id ?: 0,
+        slug = data?.slug.orEmpty(),
+        name = data?.name.orEmpty(),
+        released = data?.released.orEmpty(),
+        tba = data?.tba ?: false,
+        backgroundImage = data?.backgroundImage.orEmpty(),
+        rating = data?.rating ?: 0.0,
+        ratingTop = data?.ratingTop ?: 0,
+        ratingsCount = data?.ratingsCount ?: 0,
+        reviewsTextCount = data?.reviewsTextCount ?: 0,
+        added = data?.added ?: 0,
+        metacritic = data?.metacritic ?: 0,
+        playtime = data?.playtime ?: 0,
+        suggestionsCount = data?.suggestionsCount ?: 0,
+        updated = data?.updated.orEmpty(),
+        reviewsCount = data?.reviewsCount ?: 0,
+        saturatedColor = data?.saturatedColor.orEmpty(),
+        dominantColor = data?.dominantColor.orEmpty(),
+        parentPlatforms = data?.parentPlatforms.orEmpty(),
+        genres = data?.genres.orEmpty(),
+        stores = data?.stores.orEmpty(),
+        tags = data?.tags.orEmpty(),
+        esrbRating = data?.esrbRating.orEmpty(),
+        shortScreenshots = data?.shortScreenshots.orEmpty()
     )
 
     @Parcelize

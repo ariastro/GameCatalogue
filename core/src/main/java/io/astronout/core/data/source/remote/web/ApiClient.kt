@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class ApiClient @Inject constructor(private val api: ApiService) : ApiService {
 
-    override suspend fun getGames(page: Int, pageSize: Int, key: String): GamesResponse {
+    override suspend fun getGames(page: Int, pageSize: Int, key: String): ApiResponse<GamesResponse> {
         return api.getGames(page, pageSize, key)
     }
 

@@ -1,6 +1,7 @@
 package io.astronout.gamescatalogue.presentation.home
 
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import io.astronout.core.base.BaseFragment
 import io.astronout.core.binding.viewBinding
@@ -16,7 +17,7 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
 
     private val adapter: GameAdapter by lazy {
         GameAdapter {
-
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToGameDetailFragment(it))
         }
     }
 
@@ -35,12 +36,6 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
         super.initUI()
         with(binding) {
             rvGame.adapter = adapter
-            adapter.addLoadStateListener { loadState ->
-                if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached) {
-//                    llEmptyState.isVisible = recordAdapter.itemCount < 1
-//                    rvRecord.isVisible = recordAdapter.itemCount > 0
-                }
-            }
         }
     }
 }

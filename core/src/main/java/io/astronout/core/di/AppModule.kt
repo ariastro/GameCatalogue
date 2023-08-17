@@ -1,6 +1,7 @@
 package io.astronout.core.di
 
 import android.content.Context
+import androidx.room.Room
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
@@ -13,6 +14,9 @@ import dagger.hilt.components.SingletonComponent
 import io.astronout.core.BuildConfig
 import io.astronout.core.data.source.GamesRepository
 import io.astronout.core.data.source.GamesStoryDataStore
+import io.astronout.core.data.source.local.LocalDataSource
+import io.astronout.core.data.source.local.LocalDataSourceImpl
+import io.astronout.core.data.source.local.room.GameDatabase
 import io.astronout.core.data.source.remote.AuthInterceptor
 import io.astronout.core.data.source.remote.web.ApiClient
 import io.astronout.core.data.source.remote.web.ApiService
@@ -89,13 +93,23 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRepository(apiClient: ApiClient, ioDispatcher: CoroutineDispatcher): GamesRepository {
-        return GamesStoryDataStore(apiClient, ioDispatcher)
+    fun provideGameDatabase(@ApplicationContext context: Context): GameDatabase {
+        return Room.databaseBuilder(
+            context.applicationContext,
+            GameDatabase::class.java,
+            "game_database"
+        ).build()
     }
 
-//    @Provides
-//    @Singleton
-//    fun provideLocalDataSource(dataStore: DataStore<Preferences>): LocalDataSource = LocalDataSourceImpl(dataStore)
+    @Provides
+    @Singleton
+    fun provideLocalDataSource(gameDatabase: GameDatabase): LocalDataSource = LocalDataSourceImpl(gameDatabase)
+
+    @Provides
+    @Singleton
+    fun provideRepository(apiClient: ApiClient, localDataSource: LocalDataSource, ioDispatcher: CoroutineDispatcher): GamesRepository {
+        return GamesStoryDataStore(apiClient, localDataSource, ioDispatcher)
+    }
 
     @Provides
     @Singleton

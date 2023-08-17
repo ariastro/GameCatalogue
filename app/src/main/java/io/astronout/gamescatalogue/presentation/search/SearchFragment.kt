@@ -2,6 +2,7 @@ package io.astronout.gamescatalogue.presentation.search
 
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import io.astronout.core.base.BaseFragment
 import io.astronout.core.binding.viewBinding
 import io.astronout.core.domain.model.Game
@@ -23,7 +24,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
     private val adapter: SearchGameAdapter by lazy {
         SearchGameAdapter {
-
+            findNavController().navigate(SearchFragmentDirections.actionSearchFragmentToGameDetailFragment(it))
         }
     }
 
