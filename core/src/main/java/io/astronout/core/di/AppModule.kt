@@ -12,12 +12,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.astronout.core.BuildConfig
-import io.astronout.core.data.source.GamesRepository
+import io.astronout.core.domain.repository.GamesRepository
 import io.astronout.core.data.source.GamesStoryDataStore
 import io.astronout.core.data.source.local.LocalDataSource
 import io.astronout.core.data.source.local.LocalDataSourceImpl
 import io.astronout.core.data.source.local.room.GameDatabase
-import io.astronout.core.data.source.remote.AuthInterceptor
 import io.astronout.core.data.source.remote.web.ApiClient
 import io.astronout.core.data.source.remote.web.ApiService
 import io.astronout.core.domain.usecase.GameInteractor

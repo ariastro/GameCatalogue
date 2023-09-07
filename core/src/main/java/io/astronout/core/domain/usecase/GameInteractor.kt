@@ -2,7 +2,7 @@ package io.astronout.core.domain.usecase
 
 import androidx.paging.PagingData
 import androidx.paging.map
-import io.astronout.core.data.source.GamesRepository
+import io.astronout.core.domain.repository.GamesRepository
 import io.astronout.core.data.source.local.LocalDataSource
 import io.astronout.core.domain.model.Game
 import io.astronout.core.vo.Resource

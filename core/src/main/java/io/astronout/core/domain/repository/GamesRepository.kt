@@ -1,4 +1,4 @@
-package io.astronout.core.data.source
+package io.astronout.core.domain.repository
 
 import androidx.paging.PagingData
 import io.astronout.core.data.source.local.entity.GameEntity
