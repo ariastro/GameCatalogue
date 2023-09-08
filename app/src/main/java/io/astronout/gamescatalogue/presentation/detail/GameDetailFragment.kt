@@ -37,11 +37,7 @@ class GameDetailFragment : BaseFragment(R.layout.fragment_game_detail) {
         super.initData()
         collectLifecycleFlow(viewModel.getGameDetails(args.game.id)) {
             Timber.d("checkData: $it")
-            if (it != null) {
-                showGameDetails(it)
-            } else {
-                showGameDetails(args.game)
-            }
+            showGameDetails(it)
         }
     }
 
@@ -53,7 +49,8 @@ class GameDetailFragment : BaseFragment(R.layout.fragment_game_detail) {
             tvReleaseDate.text = "Released: ${game.released.convertDateTo(ConverterDate.FULL_DATE)}"
             tvRating.text = "${game.rating}/5"
             ivGame.loadImage(game.backgroundImage)
-            binding.ivFavorites.isActivated = game.isFavorites
+            ivFavorites.isActivated = game.isFavorites
+            tvGenre.text = game.genres.joinToString()
             toggleFavorites()
         }
     }

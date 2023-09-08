@@ -40,7 +40,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         super.initAction()
         with(binding) {
             etSearch.textChanges()
-                .debounce(600)
+                .debounce(300)
                 .onEach {
                     if (!it.isNullOrEmpty()) {
                         searchGames(it.toString())

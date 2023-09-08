@@ -1,13 +1,12 @@
 package io.astronout.core.domain.usecase
 
-import androidx.paging.PagingData
 import io.astronout.core.domain.model.Game
 import io.astronout.core.vo.Resource
 import kotlinx.coroutines.flow.Flow
 
 interface GameUsecase {
 
-    fun getGames(): Flow<PagingData<Game>>
+    fun getAllGames(): Flow<Resource<List<Game>>>
 
     fun searchGames(query: String): Flow<Resource<List<Game>>>
 
@@ -15,6 +14,6 @@ interface GameUsecase {
 
     fun getAllFavoritesGames(): Flow<List<Game>>
 
-    fun getGameDetails(id: Long): Flow<Game?>
+    fun getGameDetails(id: Long): Flow<Game>
 
 }

@@ -1,8 +1,7 @@
-package io.astronout.gamescatalogue.presentation.favourite
+package io.astronout.favorite.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,7 +11,9 @@ import io.astronout.core.utils.convertDateTo
 import io.astronout.core.utils.loadImage
 import io.astronout.gamescatalogue.databinding.ItemGameBinding
 
-class FavouritesGameAdapter(private val onItemClicked: (Game) -> Unit): ListAdapter<Game, FavouritesGameAdapter.ViewHolder>(DIFF_CALLBACK) {
+class FavouritesGameAdapter(private val onItemClicked: (Game) -> Unit): ListAdapter<Game, FavouritesGameAdapter.ViewHolder>(
+    DIFF_CALLBACK
+) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

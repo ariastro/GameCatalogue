@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -6,6 +8,8 @@ plugins {
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
 }
+
+val properties = gradleLocalProperties(rootDir)
 
 android {
     namespace = "io.astronout.core"
@@ -22,13 +26,13 @@ android {
     buildTypes {
         getByName("release") {
             buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
-            buildConfigField("String", "API_KEY", "\"5e42d6bc97d545f18d6a6e28d3ad8237\"")
+            buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
             isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         getByName("debug") {
             buildConfigField("String", "BASE_URL", "\"https://api.rawg.io/api/\"")
-            buildConfigField("String", "API_KEY", "\"5e42d6bc97d545f18d6a6e28d3ad8237\"")
+            buildConfigField("String", "API_KEY", properties.getProperty("API_KEY"))
             isMinifyEnabled = false
         }
     }
@@ -86,21 +90,8 @@ dependencies {
 
     api(libs.shimmer)
 
-    implementation(libs.datastore)
-    implementation(libs.datastore.core)
-
-    api(libs.dots.indicator)
-    api(libs.cpp)
-
-    coreLibraryDesugaring(libs.desugar)
-    api(libs.progress.view)
-
-    api(libs.sliding.up.panel)
-
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
 
     api(libs.paging)
-
-    api(libs.power.spinner)
 }

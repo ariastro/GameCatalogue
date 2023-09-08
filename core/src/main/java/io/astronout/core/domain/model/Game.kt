@@ -92,36 +92,4 @@ data class Game(
         isFavorites = data?.isFavorites ?: false,
         description = data?.description.orEmpty()
     )
-
-    @Parcelize
-    data class Rating(
-        val title: String,
-        val count: Int,
-        val percent: Double
-    ): Parcelable {
-        constructor(data: GamesResponse.Game.Rating?): this(
-            title = data?.title.orEmpty(),
-            count = data?.count ?: 0,
-            percent = data?.percent ?: 0.0
-        )
-    }
-
-    @Parcelize
-    data class AddedByStatus(
-        val yet: Int,
-        val owned: Int,
-        val beaten: Int,
-        val toplay: Int,
-        val dropped: Int,
-        val playing: Int
-    ): Parcelable {
-        constructor(data: GamesResponse.Game.AddedByStatus?): this(
-            yet = data?.yet ?: 0,
-            owned = data?.owned ?: 0,
-            beaten = data?.beaten ?: 0,
-            toplay = data?.toplay ?: 0,
-            dropped = data?.dropped ?: 0,
-            playing = data?.playing ?: 0
-        )
-    }
 }

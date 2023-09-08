@@ -12,17 +12,16 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import io.astronout.core.BuildConfig
-import io.astronout.core.domain.repository.GamesRepository
-import io.astronout.core.data.source.GamesStoryDataStore
+import io.astronout.core.data.source.GamesDataStore
 import io.astronout.core.data.source.local.LocalDataSource
 import io.astronout.core.data.source.local.LocalDataSourceImpl
 import io.astronout.core.data.source.local.room.GameDatabase
-import io.astronout.core.data.source.remote.web.ApiClient
+import io.astronout.core.data.source.remote.AuthInterceptor
+import io.astronout.core.data.source.remote.RemoteDataSource
 import io.astronout.core.data.source.remote.web.ApiService
+import io.astronout.core.domain.repository.GamesRepository
 import io.astronout.core.domain.usecase.GameInteractor
 import io.astronout.core.domain.usecase.GameUsecase
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -59,13 +58,13 @@ class AppModule {
     @Singleton
     fun provideOkHttpClient(chuckerInterceptor: ChuckerInterceptor) = if (BuildConfig.DEBUG) {
         OkHttpClient.Builder()
-//            .addInterceptor(AuthInterceptor())
+            .addInterceptor(AuthInterceptor())
             .addInterceptor(chuckerInterceptor)
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .build()
     } else {
         OkHttpClient.Builder()
-//            .addInterceptor(AuthInterceptor())
+            .addInterceptor(AuthInterceptor())
             .build()
     }
 
@@ -86,12 +85,6 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideIODispatcher(): CoroutineDispatcher {
-        return Dispatchers.IO
-    }
-
-    @Provides
-    @Singleton
     fun provideGameDatabase(@ApplicationContext context: Context): GameDatabase {
         return Room.databaseBuilder(
             context.applicationContext,
@@ -106,14 +99,14 @@ class AppModule {
 
     @Provides
     @Singleton
-    fun provideRepository(apiClient: ApiClient, localDataSource: LocalDataSource, ioDispatcher: CoroutineDispatcher): GamesRepository {
-        return GamesStoryDataStore(apiClient, localDataSource, ioDispatcher)
+    fun provideRepository(remoteDataSource: RemoteDataSource, localDataSource: LocalDataSource): GamesRepository {
+        return GamesDataStore(remoteDataSource, localDataSource)
     }
 
     @Provides
     @Singleton
-    fun provideGameUsecase(repo: GamesRepository, localDataSource: LocalDataSource): GameUsecase {
-        return GameInteractor(repo, localDataSource)
+    fun provideGameUsecase(repo: GamesRepository): GameUsecase {
+        return GameInteractor(repo)
     }
 
 }

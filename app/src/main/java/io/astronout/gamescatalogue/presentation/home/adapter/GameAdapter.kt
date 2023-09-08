@@ -2,8 +2,8 @@ package io.astronout.gamescatalogue.presentation.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import io.astronout.core.domain.model.Game
 import io.astronout.core.utils.ConverterDate
@@ -11,8 +11,7 @@ import io.astronout.core.utils.convertDateTo
 import io.astronout.core.utils.loadImage
 import io.astronout.gamescatalogue.databinding.ItemGameBinding
 
-class GameAdapter(private val onItemClicked: (Game) -> Unit) :
-    PagingDataAdapter<Game, GameAdapter.ViewHolder>(DIFF_CALLBACK) {
+class GameAdapter(private val onItemClicked: (Game) -> Unit) : ListAdapter<Game, GameAdapter.ViewHolder>(DIFF_CALLBACK) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -25,9 +24,7 @@ class GameAdapter(private val onItemClicked: (Game) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        getItem(position)?.let {
-            holder.bind(it)
-        }
+        holder.bind(getItem(position))
     }
 
     inner class ViewHolder(private val binding: ItemGameBinding) :
