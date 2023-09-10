@@ -70,4 +70,9 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         adapter.submitList(data)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.rvGame.adapter = null
+    }
+
 }

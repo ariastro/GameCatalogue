@@ -51,4 +51,10 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             rvGame.adapter = adapter
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.rvGame.adapter = null
+    }
+
 }

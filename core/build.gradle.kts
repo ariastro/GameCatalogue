@@ -94,4 +94,8 @@ dependencies {
     releaseImplementation(libs.chucker.no.op)
 
     api(libs.paging)
+
+    debugImplementation(libs.leak.canary)
+    api(libs.sql.clipper)
+    api(libs.sqlite.ktx)
 }
