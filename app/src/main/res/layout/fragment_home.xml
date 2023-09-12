@@ -26,7 +26,7 @@
         android:id="@+id/tvSubtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Find your favorites games here and see what people think about the games"
+        android:text="@string/label_subtitle"
         android:textAppearance="@style/AppTypographyStyles.Regular"
         android:textColor="@color/neutral_50"
         android:textSize="12sp"
@@ -34,19 +34,29 @@
         app:layout_constraintStart_toStartOf="@id/tvBrowseGame"
         app:layout_constraintTop_toBottomOf="@id/tvBrowseGame" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvGame"
+    <com.kennyc.view.MultiStateView
+        android:id="@+id/msvGame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipToPadding="false"
         android:layout_marginTop="12dp"
-        android:paddingBottom="12dp"
-        android:overScrollMode="never"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
-        app:spanCount="2"
-        tools:itemCount="10"
-        tools:listitem="@layout/item_game" />
+        app:msv_animateViewChanges="true"
+        app:msv_loadingView="@layout/layout_game_loading_state"
+        app:msv_viewState="content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvGame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingBottom="12dp"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="2"
+            tools:itemCount="10"
+            tools:listitem="@layout/item_game" />
+
+    </com.kennyc.view.MultiStateView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,14 +3,15 @@ package io.astronout.favorite.presentation
 import android.content.Context
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.kennyc.view.MultiStateView
 import dagger.hilt.android.EntryPointAccessors
 import io.astronout.core.base.BaseFragment
 import io.astronout.core.binding.viewBinding
 import io.astronout.core.di.FavouritesModuleDependencies
 import io.astronout.core.utils.collectLifecycleFlow
+import io.astronout.favorite.R
+import io.astronout.favorite.databinding.FragmentFavouritesBinding
 import io.astronout.favorite.presentation.di.DaggerFavouritesComponent
-import io.astronout.gamescatalogue.R
-import io.astronout.gamescatalogue.databinding.FragmentFavouritesBinding
 import javax.inject.Inject
 
 class FavouritesFragment : BaseFragment(R.layout.fragment_favourites) {
@@ -33,7 +34,14 @@ class FavouritesFragment : BaseFragment(R.layout.fragment_favourites) {
     override fun initData() {
         super.initData()
         collectLifecycleFlow(viewModel.favoriteGames) {
-            adapter.submitList(it)
+            with(binding) {
+                if (it.isNotEmpty()) {
+                    binding.msvFavorites.viewState = MultiStateView.ViewState.CONTENT
+                    adapter.submitList(it)
+                } else {
+                    binding.msvFavorites.viewState = MultiStateView.ViewState.EMPTY
+                }
+            }
         }
     }
 

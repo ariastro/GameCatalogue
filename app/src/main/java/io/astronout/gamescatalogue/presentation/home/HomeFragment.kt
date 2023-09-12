@@ -2,6 +2,7 @@ package io.astronout.gamescatalogue.presentation.home
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.kennyc.view.MultiStateView
 import io.astronout.core.base.BaseFragment
 import io.astronout.core.binding.viewBinding
 import io.astronout.core.utils.collectLifecycleFlow
@@ -28,14 +29,14 @@ class HomeFragment : BaseFragment(R.layout.fragment_home) {
             collectLifecycleFlow(viewModel.games) {
                 when (it) {
                     is Resource.Loading -> {
-                        progress.show()
+                        msvGame.viewState = MultiStateView.ViewState.LOADING
                     }
                     is Resource.Error -> {
-                        progress.dismiss()
+                        msvGame.viewState = MultiStateView.ViewState.CONTENT
                         showToast(it.message)
                     }
                     is Resource.Success -> {
-                        progress.dismiss()
+                        msvGame.viewState = MultiStateView.ViewState.CONTENT
                         val recyclerViewState = rvGame.layoutManager?.onSaveInstanceState()
                         adapter.submitList(it.data)
                         rvGame.layoutManager?.onRestoreInstanceState(recyclerViewState)

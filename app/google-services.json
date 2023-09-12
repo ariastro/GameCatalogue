@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "841593951112",
+    "project_id": "gamescatalogue-a30ee",
+    "storage_bucket": "gamescatalogue-a30ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:841593951112:android:6c553b71157e77bcc8a03d",
+        "android_client_info": {
+          "package_name": "io.astronout.gamescatalogue"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEzL_O5iYDECMowjpWgHP4lHqyEzp1Uo4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

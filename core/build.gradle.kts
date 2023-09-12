@@ -1,5 +1,6 @@
 import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     id("com.android.library")
     kotlin("android")
@@ -98,4 +99,7 @@ dependencies {
     debugImplementation(libs.leak.canary)
     api(libs.sql.clipper)
     api(libs.sqlite.ktx)
+
+    api(libs.analytics)
+    api(libs.crashlytics)
 }
