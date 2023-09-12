@@ -2,7 +2,6 @@ package io.astronout.gamescatalogue.presentation.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.astronout.core.domain.usecase.GameUsecase
 import kotlinx.coroutines.launch

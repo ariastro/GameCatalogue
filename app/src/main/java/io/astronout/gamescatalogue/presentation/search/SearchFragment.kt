@@ -40,7 +40,7 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
         super.initAction()
         with(binding) {
             etSearch.textChanges()
-                .debounce(600)
+                .debounce(300)
                 .onEach {
                     if (!it.isNullOrEmpty()) {
                         searchGames(it.toString())
@@ -68,6 +68,11 @@ class SearchFragment : BaseFragment(R.layout.fragment_search) {
 
     private fun onSearchGamesSuccess(data: List<Game>) {
         adapter.submitList(data)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.rvGame.adapter = null
     }
 
 }

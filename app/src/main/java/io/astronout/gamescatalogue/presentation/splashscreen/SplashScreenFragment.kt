@@ -6,23 +6,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import io.astronout.core.base.BaseFragment
-import io.astronout.core.binding.viewBinding
 import io.astronout.core.utils.showToast
 import io.astronout.gamescatalogue.R
-import io.astronout.gamescatalogue.databinding.FragmentSplashScreenBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-
+import kotlin.time.Duration.Companion.seconds
 
 class SplashScreenFragment : BaseFragment(R.layout.fragment_splash_screen) {
-
-    private val binding: FragmentSplashScreenBinding by viewBinding()
 
     override fun initObserver() {
         super.initObserver()
         showNotificationPermission()
         lifecycleScope.launch {
-            delay(3000)
+            delay(3.seconds)
             navigateToHomeDashboard()
         }
     }
