@@ -89,18 +89,11 @@ dependencies {
     implementation(libs.datastore)
     implementation(libs.datastore.core)
 
-    api(libs.dots.indicator)
-    api(libs.cpp)
-
     coreLibraryDesugaring(libs.desugar)
-    api(libs.progress.view)
-
     api(libs.sliding.up.panel)
 
     debugImplementation(libs.chucker)
     releaseImplementation(libs.chucker.no.op)
 
     api(libs.paging)
-
-    api(libs.power.spinner)
 }

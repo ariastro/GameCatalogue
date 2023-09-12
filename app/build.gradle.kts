@@ -49,7 +49,6 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(libs.dagger.hilt)
-    implementation(libs.pin.view)
     kapt(libs.dagger.hilt.android.compiler)
     kapt(libs.dagger.hilt.compiler)
     testImplementation(libs.junit)
