@@ -72,4 +72,9 @@ class GameDetailFragment : BaseFragment(R.layout.fragment_game_detail) {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        (activity as AppCompatActivity).setSupportActionBar(null)
+    }
+
 }
