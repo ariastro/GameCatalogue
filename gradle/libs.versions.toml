@@ -42,6 +42,7 @@ google-services = "4.3.15"
 crashlytics = "18.4.1"
 crashlytics-plugins = "2.9.4"
 analytics = "21.2.0"
+ksp = "1.8.10-1.0.9"
 
 [libraries]
 core-ktx = { module = "androidx.core:core-ktx", version.ref = "core-ktx" }
@@ -136,3 +137,4 @@ kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 com-android-dynamic-feature = { id = "com.android.dynamic-feature", version.ref = "gradleplugin" }
 google-services = { id = "com.google.gms.google-services", version.ref = "google-services" }
 crashlytics = { id = "com.google.firebase.crashlytics", version.ref = "crashlytics-plugins" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }

@@ -3,8 +3,6 @@
     <string name="title_browse_games">Browse games</string>
     <string name="title_search_games">Search games</string>
     <string name="title_favorites_games">Favourites games</string>
-    <string name="retry">Retry</string>
-    <string name="loading_error_message">Unable to fetch data</string>
     <string name="title_favorite">Favorites</string>
     <string name="label_subtitle">Find your favorites games here and see what people think about the games</string>
     <string name="label_game_title">Game Title</string>

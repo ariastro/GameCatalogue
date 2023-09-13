@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.GamesCatalogue" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary_50</item>
@@ -31,12 +31,6 @@
     <style name="AppTypographyStyles.Regular" parent="TextAppearance.AppCompat.Body1">
         <item name="fontFamily">@font/poppins_regular</item>
         <item name="android:fontFamily">@font/poppins_regular</item>
-        <item name="android:includeFontPadding">false</item>
-    </style>
-
-    <style name="AppTypographyStyles.Light" parent="TextAppearance.AppCompat.Body1">
-        <item name="fontFamily">@font/poppins_light</item>
-        <item name="android:fontFamily">@font/poppins_light</item>
         <item name="android:includeFontPadding">false</item>
     </style>
 

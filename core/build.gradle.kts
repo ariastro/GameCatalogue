@@ -8,6 +8,7 @@ plugins {
     id("kotlin-parcelize")
     id("com.google.dagger.hilt.android")
     id("androidx.navigation.safeargs.kotlin")
+    alias(libs.plugins.ksp)
 }
 
 val properties = gradleLocalProperties(rootDir)
@@ -44,6 +45,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    ksp {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
 }
 
 dependencies {
@@ -63,21 +67,21 @@ dependencies {
     api(libs.fragment.ktx)
 
     api(libs.bundles.room)
-    kapt(libs.room.compiler)
+    ksp(libs.room.compiler)
 
     api(libs.bundles.lifecycle)
 
     api(libs.bundles.networking)
 
     api(libs.bundles.moshi)
-    kapt(libs.moshi.codegen)
+    ksp(libs.moshi.codegen)
 
     api(libs.coroutines)
     api(libs.coroutines.android)
     testImplementation(libs.coroutines.test)
 
     api(libs.glide)
-    kapt(libs.glide.compiler)
+    ksp(libs.glide.compiler)
 
     api(libs.timber)
 
